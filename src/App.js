@@ -18,8 +18,25 @@ function App() {
 
   const calculateBooksPrice = (shoppingCart) => {
     let totalPrice = ZERO
-    if (shoppingCart.length === 1) { totalPrice += BOOK_PRICE } else
-      if (shoppingCart[0] !== shoppingCart[1]) { totalPrice += TWO * BOOK_PRICE * FIVE_PERCENT }
+
+    while (!shoppingCart.every(book => !book)) {
+      const differentBooksArr = []
+      shoppingCart.forEach((book, i) => {
+        if (!differentBooksArr.includes(book) && book) {
+          differentBooksArr.push(book)
+          shoppingCart[i] = false
+        }
+      });
+
+      switch (differentBooksArr.length) {
+        case 1:
+          totalPrice += BOOK_PRICE
+          break;
+        case 2:
+          totalPrice += TWO * BOOK_PRICE * FIVE_PERCENT
+          break;
+      }
+    }
     setTotalPrice(totalPrice)
   }
 

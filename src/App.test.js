@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
-import { ONE, FOUR } from './constants'
+import { ONE, TWO, FOUR } from './constants'
 
 const addBooksAndCalcPrice = (bookArr) => {
 
@@ -58,6 +58,15 @@ describe("Book price calculator - Tests", () => {
 
     const totalPrice = screen.getByRole('heading', { level: FOUR });
     expect(totalPrice.innerHTML).toBe('Total price: 187.5');
+  });
+
+  test("4 books, 3 different", async () => {
+    render(<App />)
+
+    addBooksAndCalcPrice([{ title: 'Clean Code', quantity: TWO }, { title: 'The Clean Coder', quantity: ONE }, { title: 'Clean Architecture', quantity: ONE }])
+
+    const totalPrice = screen.getByRole('heading', { level: FOUR });
+    expect(totalPrice.innerHTML).toBe('Total price: 185');
   });
 
 });

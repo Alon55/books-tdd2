@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { ZERO, TWO, FIVE_PERCENT, BOOK_PRICE } from './constants'
+import { ZERO, THREE, TWO, BOOK_PRICE, FIVE_PERCENT, TEN_PERCENT } from './constants'
 
 
 function App() {
   const [cleanCodeQuantity, setCleanCodeQuantity] = useState(ZERO)
   const [cleanCoderQuantity, setCleanCoderQuantity] = useState(ZERO)
+  const [cleanArchitectureQuantity, setCleanArchitectureQuantity] = useState(ZERO)
   const [totalPrice, setTotalPrice] = useState(ZERO)
   const [shoppingCart, setShoppingCart] = useState([])
 
   useEffect(() => {
     setShoppingCart([
       ...Array(cleanCodeQuantity).fill('cleanCode'),
-      ...Array(cleanCoderQuantity).fill('cleanCoder')
+      ...Array(cleanCoderQuantity).fill('cleanCoder'),
+      ...Array(cleanArchitectureQuantity).fill('cleanArchitecture')
     ])
-  }, [cleanCodeQuantity, cleanCoderQuantity])
+  }, [cleanCodeQuantity, cleanCoderQuantity, cleanArchitectureQuantity])
 
   const calculateBooksPrice = (shoppingCart) => {
     let totalPrice = ZERO
@@ -35,6 +37,9 @@ function App() {
         case 2:
           totalPrice += TWO * BOOK_PRICE * FIVE_PERCENT
           break;
+        case 3:
+          totalPrice += THREE * BOOK_PRICE * TEN_PERCENT
+          break;
       }
     }
     setTotalPrice(totalPrice)
@@ -49,6 +54,7 @@ function App() {
       <div className="inputs">
         <label htmlFor="clean-code">Clean Code <input type="number" min={ZERO} id="clean-code" value={cleanCodeQuantity} onChange={e => setCleanCodeQuantity(Number(e.target.value))}></input></label>
         <label htmlFor="clean-coder">The Clean Coder <input type="number" min={ZERO} id="clean-coder" value={cleanCoderQuantity} onChange={e => setCleanCoderQuantity(Number(e.target.value))}></input></label>
+        <label htmlFor="clean-architecture">Clean Architecture <input type="number" min={ZERO} id="clean-architecture" value={cleanArchitectureQuantity} onChange={e => setCleanArchitectureQuantity(Number(e.target.value))}></input></label>
       </div>
       <br />
       <button onClick={() => calculateBooksPrice(shoppingCart)}>Calculate Total Price</button>

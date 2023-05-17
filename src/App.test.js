@@ -17,4 +17,19 @@ describe("Book price calculator - Tests", () => {
     expect(totalPrice.innerHTML).toBe('Total price: 50');
   });
 
+  test("2 different books - 5% discount", async () => {
+    render(<App />)
+
+    const inputCleanCode = screen.getByLabelText('Clean Code')
+    fireEvent.change(inputCleanCode, { target: { value: ONE } })
+    const inputTheCleanCoder = screen.getByLabelText('The Clean Coder')
+    fireEvent.change(inputTheCleanCoder, { target: { value: ONE } })
+
+    const calculatePrice = screen.getByRole('button', { name: /Calculate Total Price/i });
+    fireEvent.click(calculatePrice)
+
+    const totalPrice = screen.getByRole('heading', { level: FOUR });
+    expect(totalPrice.innerHTML).toBe('Total price: 95');
+  });
+
 });

@@ -45,6 +45,8 @@ function App() {
         case 4:
           totalPrice += FOUR * BOOK_PRICE * TWENTY_PERCENT
           break;
+        default:
+          totalPrice = totalPrice
       }
     }
     setTotalPrice(totalPrice)

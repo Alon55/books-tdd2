@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import { ZERO, BOOK_PRICE } from './constants'
+
 
 function App() {
-  const [cleanCodeQuantity, setCleanCodeQuantity] = useState(0)
-  const [totalPrice, setTotalPrice] = useState(0)
+  const [cleanCodeQuantity, setCleanCodeQuantity] = useState(ZERO)
+  const [totalPrice, setTotalPrice] = useState(ZERO)
 
   const calculateBooksPrice = (cleanCodeQuantity) => {
-    let totalPrice = cleanCodeQuantity * 50
+    let totalPrice = cleanCodeQuantity * BOOK_PRICE
     setTotalPrice(totalPrice)
   }
 
@@ -17,7 +19,7 @@ function App() {
         Book price calculator - TDD
       </h3>
       <div className="inputs">
-        <label htmlFor="clean-code">Clean Code <input type="number" min={0} id="clean-code" value={cleanCodeQuantity} onChange={e => setCleanCodeQuantity(Number(e.target.value))}></input></label>
+        <label htmlFor="clean-code">Clean Code <input type="number" min={ZERO} id="clean-code" value={cleanCodeQuantity} onChange={e => setCleanCodeQuantity(Number(e.target.value))}></input></label>
       </div>
       <br />
       <button onClick={() => calculateBooksPrice(cleanCodeQuantity)}>Calculate Total Price</button>

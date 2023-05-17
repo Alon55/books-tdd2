@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { ZERO, THREE, TWO, BOOK_PRICE, FIVE_PERCENT, TEN_PERCENT } from './constants'
+import { ZERO, THREE, FOUR, TWO, BOOK_PRICE, FIVE_PERCENT, TEN_PERCENT, TWENTY_PERCENT } from './constants'
 
 
 function App() {
   const [cleanCodeQuantity, setCleanCodeQuantity] = useState(ZERO)
   const [cleanCoderQuantity, setCleanCoderQuantity] = useState(ZERO)
   const [cleanArchitectureQuantity, setCleanArchitectureQuantity] = useState(ZERO)
+  const [tddQuantity, setTddQuantity] = useState(ZERO)
   const [totalPrice, setTotalPrice] = useState(ZERO)
   const [shoppingCart, setShoppingCart] = useState([])
 
@@ -14,9 +15,10 @@ function App() {
     setShoppingCart([
       ...Array(cleanCodeQuantity).fill('cleanCode'),
       ...Array(cleanCoderQuantity).fill('cleanCoder'),
-      ...Array(cleanArchitectureQuantity).fill('cleanArchitecture')
+      ...Array(cleanArchitectureQuantity).fill('cleanArchitecture'),
+      ...Array(tddQuantity).fill('tdd'),
     ])
-  }, [cleanCodeQuantity, cleanCoderQuantity, cleanArchitectureQuantity])
+  }, [cleanCodeQuantity, cleanCoderQuantity, cleanArchitectureQuantity, tddQuantity])
 
   const calculateBooksPrice = (shoppingCart) => {
     let totalPrice = ZERO
@@ -40,6 +42,9 @@ function App() {
         case 3:
           totalPrice += THREE * BOOK_PRICE * TEN_PERCENT
           break;
+        case 4:
+          totalPrice += FOUR * BOOK_PRICE * TWENTY_PERCENT
+          break;
       }
     }
     setTotalPrice(totalPrice)
@@ -55,6 +60,7 @@ function App() {
         <label htmlFor="clean-code">Clean Code <input type="number" min={ZERO} id="clean-code" value={cleanCodeQuantity} onChange={e => setCleanCodeQuantity(Number(e.target.value))}></input></label>
         <label htmlFor="clean-coder">The Clean Coder <input type="number" min={ZERO} id="clean-coder" value={cleanCoderQuantity} onChange={e => setCleanCoderQuantity(Number(e.target.value))}></input></label>
         <label htmlFor="clean-architecture">Clean Architecture <input type="number" min={ZERO} id="clean-architecture" value={cleanArchitectureQuantity} onChange={e => setCleanArchitectureQuantity(Number(e.target.value))}></input></label>
+        <label htmlFor="tdd">Test Driven Development <input type="number" id="tdd" min={ZERO} value={tddQuantity} onChange={e => setTddQuantity(Number(e.target.value))}></input></label>
       </div>
       <br />
       <button onClick={() => calculateBooksPrice(shoppingCart)}>Calculate Total Price</button>
